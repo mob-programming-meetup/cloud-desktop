@@ -1,4 +1,10 @@
-## Debian 10 Base Image + Xfce4 Desktop
+## Cloud Mob-Station - Debian 10 Base Image + Xfce4 Desktop
+
+TODO:
+* [ ] Create Bash script to install via  
+`curl -s https://raw.githubusercontent.com/mob-programming-meetup/cloud-mob-station/master/install.linux.sh | bash`
+
+### Copy&Paste Script
 
 ### Part One
 
