@@ -37,6 +37,7 @@ choco install -y `
   procexp `
   putty `
   python3 `
+  ripgrep `
   ruby `
   sliksvn `
   sublimetext3 `
