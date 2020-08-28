@@ -101,6 +101,7 @@ sudo apt install -y  \
   # audio/volume controle
   pavucontrol \
   pulseaudio \
+  ripgrep \
   snapd \
   xfce4-goodies
 
