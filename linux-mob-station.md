@@ -3,7 +3,8 @@
 TODO:
 * [ ] Create Bash script to install via  
 `curl -s https://raw.githubusercontent.com/mob-programming-meetup/cloud-mob-station/master/install.linux.sh | bash`
-
+* [ ] **Even better:** configure via *cloud-init* (Supported by AWS, GCE, Azure, DigitalOcean, OpenStack and Hetzner)  
+https://cloudinit.readthedocs.io/en/latest/topics/examples.html#install-arbitrary-packages
 ### Copy&Paste Script
 
 ### Part One
