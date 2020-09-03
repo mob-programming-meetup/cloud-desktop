@@ -1,6 +1,6 @@
 # Cloud Mob-Station (WIP)
 
-This project provides instructions and scripts for easily setting up a cloud instance with a universal develop environments that can be used for Mob-Programming.
+This project provides instructions and scripts for easily setting up a cloud instance with a universal development environment that can be used for Mob-Programming and Mob-Programming events.
 
 **Note:** This project is still work in progress, and not yet tested throghouly. Still I think it's a good idea to share it already and receive some improvement ideas. The idea is to turn the instructions into install scripts in the near future. 
 
