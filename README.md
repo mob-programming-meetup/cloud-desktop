@@ -8,7 +8,7 @@ See the instructions for:
 * [Linux](./linux-mob-station.md)
 * [Windows](./windows-mob-station.md)
 
-## Similar Work in 
+## Similar Work and Inspiration
 
 Explanation about why and how to use a mob-programming machine in the cloud: https://docs.google.com/document/d/1DyTemsYBu2LUhrwwCdNuPQDWj3f_yfMj3otaoEZZRC4
 
