@@ -46,9 +46,14 @@ sudo tar xzf WebStorm-*.tar.gz -C /opt/
 /opt/WebStorm-202.6397.88/bin/webstorm.sh
 
 # RubyMine
-wget -4 https://download.jetbrains.com/ruby/RubyMine-2020.2.tar.gz
+wget -4 https://download.jetbrains.com/ruby/RubyMine-2020.2.1.tar.gz
 sudo tar xzf RubyMine-*.tar.gz -C /opt/
-/opt/RubyMine-2020.2/bin/rubymine.sh
+/opt/RubyMine-2020.2.1/bin/rubymine.sh
+
+# PyCharm
+wget -4 https://download.jetbrains.com/python/pycharm-professional-2020.2.1.tar.gz
+sudo tar xzf pycharm-*.tar.gz -C /opt/
+/opt/pycharm-2020.2.1/bin/pycharm.sh
 
 # Ruby
 curl -L https://get.rvm.io | bash
@@ -56,7 +61,7 @@ source ~/.rvm/scripts/rvm
 rvm install 2.6
 
 # Rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 # Node LTS vs NVM
 # TODO: this is not yet tested, see original command below
@@ -83,6 +88,8 @@ adduser mob-programming
 usermod -aG sudo mob-programming
 
 teamviewer setup
+
+echo <replace with passwd> | anydesk --set-password
 		
 reboot
 
@@ -96,8 +103,9 @@ sudo apt install -y  \
   chromium-sandbox \
   firefox-esr \
   git-all \
+  python3 \
   # network usage stats
-  Ifstat \
+  ifstat \
   libreoffice \
   # audio/volume controle
   pavucontrol \
