@@ -1,5 +1,3 @@
-# NOTE: this is still work in progress
-
 #cloud-config
 
 # Add users to the system. Users are added after groups are added.
@@ -11,20 +9,20 @@
 users:
   - default
   - name: mob-programming
-    # lock_passwd: true
-    # plain_text_passwd: <replace with passwd>
     shell: /bin/bash
     sudo:  ALL=(ALL:ALL) ALL
 
 ssh_pwauth: true
 chpasswd:
   list: |
-    mob-programming:<replace with passwd>
+    mob-programming:<TODO: replace with passwd>
   expire: false ## Not forcing user to change the default password at first login
 
 apt:
-  anydesk-stable.list:
-    - source: "deb http://deb.anydesk.com/ all main"
+  preserve_sources_list: true
+  sources:
+    anydesk-stable.list:
+      source: "deb http://deb.anydesk.com/ all main"
       # Key from https://keys.anydesk.com/repos/DEB-GPG-KEY
       key: |
         -----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -59,8 +57,8 @@ apt:
         =MUUO
         -----END PGP PUBLIC KEY BLOCK-----
 
-  yarn.list:
-    - source: "deb https://dl.yarnpkg.com/debian/ stable main"
+    yarn.list:
+      source: "deb https://dl.yarnpkg.com/debian/ stable main"
       # Key from https://dl.yarnpkg.com/debian/pubkey.gpg
       key: |
         -----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -301,6 +299,8 @@ package_update: true
 # Aliases: apt_upgrade
 package_upgrade: true
 
+package_reboot_if_required: true
+
 # Install additional packages on first boot
 #
 # Default: none
@@ -311,7 +311,7 @@ package_upgrade: true
 # with the format [<package>, <version>] wherein the specifc
 # package version will be installed.
 packages:
-  #- anydesk
+  - anydesk
   - build-essential
   - chromium
   - chromium-sandbox
@@ -323,6 +323,7 @@ packages:
   - ifstat # network usage stats
   - libreoffice
   - pavucontrol # audio/volume control
+  - plank # dock alternative
   - pulseaudio
   - python3
   - ripgrep
@@ -333,15 +334,14 @@ packages:
   - xscreensaver
   - yarn
 
-
 write_files:
 - content: |
     #!/bin/bash
     set -x #echo on
 
     # jump to install dir
-    mkdir /run/mob-programming # other dir required?
-    pushd /run/mob-programming
+    mkdir /opt/mob-programming # other dir required?
+    pushd /opt/mob-programming
 
     # gdebi packages
     ## Teamviewer
@@ -408,9 +408,11 @@ write_files:
     popd
 
     # config
-    echo <replace with passwd> | sudo -S anydesk --set-password
+    echo <TODO: replace with passwd> | sudo -S anydesk --set-password
+    anydesk --get-id
+    echo
 
-  path: /run/mob-programming/install.sh
+  path: /opt/mob-programming/install.sh
   permissions: '0755'
 
 # run commands
@@ -427,4 +429,42 @@ write_files:
 # Note, that the list has to be proper yaml, so you have to quote
 # any characters yaml would eat (':' can be problematic)
 runcmd:
-  - /run/mob-programming/install.sh # permission denied!
+  - /opt/mob-programming/install.sh
+
+## poweroff or reboot system after finished
+# default: none
+#
+# power_state can be used to make the system shutdown, reboot or
+# halt after boot is finished.  This same thing can be acheived by
+# user-data scripts or by runcmd by simply invoking 'shutdown'.
+# 
+# Doing it this way ensures that cloud-init is entirely finished with
+# modules that would be executed, and avoids any error/log messages
+# that may go to the console as a result of system services like
+# syslog being taken down while cloud-init is running.
+#
+# If you delay '+5' (5 minutes) and have a timeout of
+# 120 (2 minutes), then the max time until shutdown will be 7 minutes.
+# cloud-init will invoke 'shutdown +5' after the process finishes, or
+# when 'timeout' seconds have elapsed.
+#
+# delay: form accepted by shutdown.  default is 'now'. other format
+#        accepted is +m (m in minutes)
+# mode: required. must be one of 'poweroff', 'halt', 'reboot'
+# message: provided as the message argument to 'shutdown'. default is none.
+# timeout: the amount of time to give the cloud-init process to finish
+#          before executing shutdown.
+# condition: apply state change only if condition is met.
+#            May be boolean True (always met), or False (never met),
+#            or a command string or list to be executed.
+#            command's exit code indicates:
+#               0: condition met
+#               1: condition not met
+#            other exit codes will result in 'not met', but are reserved
+#            for future use.
+#
+power_state:
+  mode: reboot
+  message: Bye Bye
+  timeout: 30
+  condition: True
