@@ -71,7 +71,8 @@ packages:
 write_files:
 - content: |
     #!/bin/bash
-    set -x #echo on
+    
+    # set -x # echo script commands for troubleshooting
 
     # jump to install dir
     mkdir /opt/mob-programming # other dir required?
@@ -143,6 +144,7 @@ write_files:
 
     # config
     echo <TODO: replace with passwd> | sudo -S anydesk --set-password
+    echo "Anydesk ID:"
     anydesk --get-id
     echo
 
