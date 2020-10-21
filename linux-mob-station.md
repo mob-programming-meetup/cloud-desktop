@@ -1,120 +1,45 @@
-## Cloud Mob-Station - Debian 10 Base Image + Xfce4 Desktop
+# Cloud Mob-Station - Debian 10 Base Image + Xfce4 Desktop
 
 TODO:
-* [ ] Create Bash script to install via  
-`curl -s https://raw.githubusercontent.com/mob-programming-meetup/cloud-mob-station/master/install.linux.sh | bash`
-* [ ] **Even better:** configure via *cloud-init* (Supported by AWS, GCE, Azure, DigitalOcean, OpenStack and Hetzner)  
-https://cloudinit.readthedocs.io/en/latest/topics/examples.html#install-arbitrary-packages
-### Copy&Paste Script
+* [ ] Improve desktop experience  
+* [ ] Configure launch icons/dock
+* [ ] Configure FullHD resolution
 
-### Part One
+## Cloud-init instance initialization
 
-```bash
+Use [linux-cloud-init.yaml](linux-cloud-init.yaml) for installing and configuring a cloud instance which can be used for collaborative programming session. This config file will install the most popular development tools and environments, so that most of the projects can be worked on without any additional installation steps. 
 
-sudo apt update && apt upgrade -y
-DEBIAN_FRONTEND=noninteractive apt install --assume-yes xfce4 desktop-base
-sudo apt install -y xscreensaver task-xfce-desktop gdebi-core
-#systemctl disable lightdm.service
+Feel free to extend and adapt the config according to your needs. To learn more about the cloud-init check out the docs here: https://cloudinit.readthedocs.io/en/latest/topics/examples.html
 
-pushd /tmp
-# Teamviewer
-wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
-sudo gdebi --non-interactive teamviewer_amd64.deb
+Please create a PR or an issue, if something of importance is missing.
 
-# Anydesk
-wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
-echo "deb http://deb.anydesk.com/ all main" | sudo tee  /etc/apt/sources.list.d/anydesk-stable.list
-sudo apt update && sudo apt install -y anydesk
+## Connecting and troubleshooting
 
-# Beyond Compare
-wget https://www.scootersoftware.com/bcompare-4.3.5.24893_amd64.deb
-sudo gdebi --non-interactive bcompare-4.3.5.24893_amd64.deb
+**Connect via SSH** using the usually generated root password, or the one provided in the cloud-init config.
 
-# Github Desktop
-wget https://github.com/shiftkey/desktop/releases/download/release-2.5.3-linux1/GitHubDesktop-linux-2.5.3-linux1.deb
-sudo gdebi --non-interactive GitHubDesktop-linux-2.5.3-linux1.deb
+It takes between 5 and 10 minutes until everything is set up.
 
-# Mobster
-wget https://github.com/dillonkearns/mobster/releases/download/v0.0.48/Mobster-0.0.48-x86_64.AppImage
-chmod +x Mobster-0.0.48-x86_64.AppImage 
-sudo mv Mobster-0.0.48-x86_64.AppImage /opt
-sudo apt install -y fuse
+Follow the installation progress via `tail --follow /var/log/cloud-init-output.log`
 
-# Webstorm
-wget -4 https://download.jetbrains.com/webstorm/WebStorm-2020.2.tar.gz
-sudo tar xzf WebStorm-*.tar.gz -C /opt/
-/opt/WebStorm-202.6397.88/bin/webstorm.sh
+**The Anydesk ID** should be printed close to the end of the output log file.
 
-# RubyMine
-wget -4 https://download.jetbrains.com/ruby/RubyMine-2020.2.1.tar.gz
-sudo tar xzf RubyMine-*.tar.gz -C /opt/
-/opt/RubyMine-2020.2.1/bin/rubymine.sh
+For more troubleshooting ideas check out: https://cloudinit.readthedocs.io/en/latest/topics/debugging.html
 
-# PyCharm
-wget -4 https://download.jetbrains.com/python/pycharm-professional-2020.2.1.tar.gz
-sudo tar xzf pycharm-*.tar.gz -C /opt/
-/opt/pycharm-2020.2.1/bin/pycharm.sh
 
-# Ruby
-curl -L https://get.rvm.io | bash
-source ~/.rvm/scripts/rvm
-rvm install 2.6
+## Installing Anydesk
+Via CLI (Windows):
 
-# Rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    choco install -y anydesk
 
-# Node LTS vs NVM
-# TODO: this is not yet tested, see original command below
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-source ~/.bashrc
-nvm install --lts 8
-nvm install --lts
-# curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-# sudo apt install -y nodejs
+Via CLI (MacOS):
 
-# Yarn
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt update && sudo apt install yarn
+    brew cask install anydesk
 
-# Zoom
-wget https://zoom.us/client/latest/zoom_amd64.deb
-sudo gdebi --non-interactive zoom_amd64.deb
+Otherwise download Anydesk from: https://anydesk.com/downloads
 
-rm *.deb *.tar.gz
-popd # /tmp
+## Cloud Providers
 
-adduser mob-programming
-usermod -aG sudo mob-programming
+### Hetzner Cloud
 
-teamviewer setup
-
-echo <replace with passwd> | anydesk --set-password
-		
-reboot
-
-```
-### Part Two
-
-```bash
-sudo apt install -y  \
-  build-essential \
-  chromium \
-  chromium-sandbox \
-  firefox-esr \
-  git-all \
-  python3 \
-  # network usage stats
-  ifstat \
-  libreoffice \
-  # audio/volume controle
-  pavucontrol \
-  pulseaudio \
-  ripgrep \
-  snapd \
-  xfce4-goodies
-
-# VSCode 
-sudo snap install --classic code
-
-```
+### AWS Cloud (not tested)
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html#user-data-cloud-init

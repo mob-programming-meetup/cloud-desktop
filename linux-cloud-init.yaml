@@ -50,6 +50,7 @@ packages:
   - chromium
   - chromium-sandbox
   - desktop-base
+  - file-roller # archive manager
   - firefox-esr
   - fuse
   - gdebi-core
@@ -135,21 +136,37 @@ write_files:
     source ~/.bashrc
     nvm install --lts 8
     nvm install --lts
+    nvm use --lts
     # curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
     # sudo apt install -y nodejs
 
     # clean-up
-    rm *.deb *.tar.gz
+    rm *.deb *.tar.gz *.AppImage
     popd
 
     # config
-    echo <TODO: replace with passwd> | sudo -S anydesk --set-password
-    echo "Anydesk ID:"
-    anydesk --get-id
-    echo
 
   path: /opt/mob-programming/install.sh
   permissions: '0755'
+
+- content: |
+    #!/bin/bash
+    
+    # set -x # echo script commands for troubleshooting
+
+    # Switch screen resolution to FullHD 
+    # xrandr --size 1920x1080 # TODO: does not work during initial install, only when the desktop environment is already running.
+
+    # Set Anydesk password
+    echo <TODO: replace with passwd> | sudo -S anydesk --set-password
+
+    # Output Anydesk ID
+    echo "Anydesk ID:"
+    anydesk --get-id
+    echo
+  path: /opt/mob-programming/configure.sh
+  permissions: '0755'
+
 
 # run commands
 # default: none
@@ -166,6 +183,7 @@ write_files:
 # any characters yaml would eat (':' can be problematic)
 runcmd:
   - /opt/mob-programming/install.sh
+  - /opt/mob-programming/configure.sh
   - reboot
 
 apt:
