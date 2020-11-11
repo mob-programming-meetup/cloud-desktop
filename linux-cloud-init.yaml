@@ -123,6 +123,10 @@ write_files:
     sudo tar xzf pycharm-*.tar.gz -C /opt/
     /opt/pycharm-2020.2.1/bin/pycharm.sh
 
+    ## Rider
+    wget -4 https://download.jetbrains.com/rider/JetBrains.Rider-2020.2.4.tar.gz
+    sudo tar xzf JetBrains.Rider-*.tar.gz -C /opt/
+    /opt/Rider-2020.2.4/bin/rider.sh
     ## Ruby
     curl -L https://get.rvm.io | bash
     source ~/.rvm/scripts/rvm
