@@ -127,6 +127,11 @@ write_files:
     wget -4 https://download.jetbrains.com/rider/JetBrains.Rider-2020.2.4.tar.gz
     sudo tar xzf JetBrains.Rider-*.tar.gz -C /opt/
     /opt/Rider-2020.2.4/bin/rider.sh
+
+    # PDF Reader
+    wget https://cdn01.foxitsoftware.com/pub/foxit/reader/desktop/linux/2.x/2.4/en_us/FoxitReader.enu.setup.2.4.4.0911.x64.run.tar.gz
+    tar xzf FoxitReader*.tar.gz
+    ./FoxitReader.enu.setup.2.4.4.0911\(r057d814\).x64.run ## TODO: need to install without UI installer
     ## Ruby
     curl -L https://get.rvm.io | bash
     source ~/.rvm/scripts/rvm
