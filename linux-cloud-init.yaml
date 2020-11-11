@@ -49,6 +49,7 @@ packages:
   - build-essential
   - chromium
   - chromium-sandbox
+  - default-jdk
   - desktop-base
   - file-roller # archive manager
   - firefox-esr
