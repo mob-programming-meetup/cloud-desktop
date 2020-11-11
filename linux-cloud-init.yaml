@@ -167,6 +167,8 @@ write_files:
     # Switch screen resolution to FullHD 
     # xrandr --size 1920x1080 # TODO: does not work during initial install, only when the desktop environment is already running.
 
+    # increase number of file watches (might be needed for some projects)
+    echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf
     # Set Anydesk password
     echo <TODO: replace with passwd> | sudo -S anydesk --set-password
 
