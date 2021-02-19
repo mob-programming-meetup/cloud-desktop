@@ -15,17 +15,21 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 choco install -y `
   7zip `
   adobereader `
+  adoptopenjdk `
+  anydesk `
   beyondcompare `
   brave `
   cmake `
   dart-sdk `
   dotnetcore `
+  firefox `
   filezilla `
   git `
   git-fork `
   github-desktop `
   GoogleChrome `
   greenshot `
+  intellijidea-ultimate `
   irfanview `
   jetbrains-rider ` 
   mariadb `
@@ -41,6 +45,7 @@ choco install -y `
   ruby `
   sliksvn `
   sublimetext3 `
+  teamviewer.host `
   terraform `
   tortoisegit `
   treesizefree `
@@ -49,19 +54,17 @@ choco install -y `
   vlc `
   vscode `
   webstorm `
+  win-no-annoy `
   winscp `
   yarn
+
+# chocolatey prerelease
+choco install -y --pre firefox-dev
 
 # TODO: this is not yet tested
 nvm install 8
 nvm install --lts latest
 nvm use --lts latest
-
-choco install -y win-no-annoy
-choco install -y --pre firefox-dev
-
-choco install -y anydesk
-choco install -y teamviewer.host
 
 Set-Timezone -Id "W. Europe Standard Time" -PassThru
 Set-Service Audiosrv -StartupType Automatic
