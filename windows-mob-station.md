@@ -46,7 +46,7 @@ choco install -y `
   ruby `
   sliksvn `
   sublimetext3 `
-  teamviewer.host `
+  teamviewer `
   terraform `
   tortoisegit `
   treesizefree `
