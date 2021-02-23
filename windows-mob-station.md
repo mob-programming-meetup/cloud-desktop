@@ -31,7 +31,7 @@ choco install -y `
   greenshot `
   intellijidea-ultimate `
   irfanview `
-  jetbrains-rider ` 
+  jetbrains-rider `
   mariadb `
   nvm `
   notepadplusplus `
