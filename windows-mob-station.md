@@ -90,6 +90,7 @@ Create VM in the cloud:
 * Choose a machine type depending on your budget and requirements. For example a 4 vCPU + 16 GB memory running a Windows OS costs approx. 0.35 $ per hour (region: europe-west4). The estimated price is shown in the top right.
 * Expand "CPU platform and GPU" and enable "Turn on display device" in order to allow screen sharing connection via Anydesk or TeamViewer.
 * Select "Windows Server 2019 Datacenter" Boot Disk. Note: The Server Core Windows versions do not include the Windows Desktop features.
+* A disk size of 70 GB or greater is recommended.
 * Click on "Create" and wait until the instance gets created.
 
 Connect to the VM in the cloud via RDP:
