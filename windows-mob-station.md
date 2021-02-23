@@ -1,4 +1,4 @@
-## Cloud Mob-Station - Windows 2019 Server Base Image
+## Cloud Desktop - Windows 2019 Server Base Image
 
 TODO:
 * [ ] Create PowerShell script to install via  
@@ -78,7 +78,7 @@ Set-Service Audiosrv -StartupType Automatic
 ```
 
 
-## Google Cloud Setup
+### Google Cloud Setup
 
 Create VM in the cloud:
 
