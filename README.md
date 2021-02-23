@@ -1,4 +1,4 @@
-# Cloud Mob-Station (WIP)
+# Cloud Desktop (WIP)
 
 This project provides instructions and scripts for easily setting up a cloud instance with a universal development environment that can be used for Mob-Programming and Mob-Programming events.
 

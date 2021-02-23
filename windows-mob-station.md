@@ -40,6 +40,7 @@ choco install -y `
   powertoys `
   procexp `
   putty `
+  pycharm `
   python3 `
   ripgrep `
   ruby `
@@ -57,6 +58,12 @@ choco install -y `
   win-no-annoy `
   winscp `
   yarn
+
+mkdir %tmp%\cloud-desktop
+pushd %tmp%\cloud-desktop
+Invoke-WebRequest https://github.com/dillonkearns/mobster/releases/download/v0.0.48/Mobster-Setup-0.0.48.exe
+.\Mobster-Setup-0.0.48.exe /S 
+popd
 
 # chocolatey prerelease
 choco install -y --pre firefox-dev
