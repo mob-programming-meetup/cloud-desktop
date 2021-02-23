@@ -59,8 +59,8 @@ choco install -y `
   winscp `
   yarn
 
-mkdir %tmp%\cloud-desktop
-pushd %tmp%\cloud-desktop
+mkdir "$env:TEMP\cloud-desktop"
+pushd "$env:TEMP\cloud-desktop"
 Invoke-WebRequest https://github.com/dillonkearns/mobster/releases/download/v0.0.48/Mobster-Setup-0.0.48.exe
 .\Mobster-Setup-0.0.48.exe /S 
 popd
