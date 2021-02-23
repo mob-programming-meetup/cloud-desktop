@@ -59,6 +59,9 @@ choco install -y `
   winscp `
   yarn
 
+# Reload environment variables (system path)
+RefreshEnv
+
 mkdir "$env:TEMP\cloud-desktop"
 pushd "$env:TEMP\cloud-desktop"
 Invoke-WebRequest https://github.com/dillonkearns/mobster/releases/download/v0.0.48/Mobster-Setup-0.0.48.exe -OutFile Mobster-Setup-0.0.48.exe
@@ -68,10 +71,10 @@ popd
 # chocolatey prerelease
 choco install -y --pre firefox-dev
 
-# TODO: this is not yet tested
+# Use Node Version Manager (NVM) to install multiple Node.js versions
 nvm install 8
-nvm install --lts latest
-nvm use --lts latest
+nvm install 14 # LTS version
+nvm use 14 # LTS version
 
 Set-Timezone -Id "W. Europe Standard Time" -PassThru
 Set-Service Audiosrv -StartupType Automatic
