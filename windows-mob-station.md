@@ -82,7 +82,7 @@ Set-Service Audiosrv -StartupType Automatic
 
 Create VM in the cloud:
 
-* Create a new VM instance in the Google Cloud Platform (Compute Engine).
+* Create a new VM instance in the Google Cloud Platform ([Compute Engine](https://console.cloud.google.com/compute)).
 * Choose a region close to your audience, in order to minimize latency.
 * Choose a machine type depending on your budget and requirements. For example a 4 vCPU + 16 GB memory running a Windows OS costs approx. 0.35 $ per hour (region: europe-west4). The estimated price is shown in the top right.
 * Expand "CPU platform and GPU" and enable "Turn on display device" in order to allow screen sharing connection via Anydesk or TeamViewer.
