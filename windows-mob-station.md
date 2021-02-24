@@ -1,85 +1,24 @@
 ## Cloud Desktop - Windows 2019 Server Base Image
 
-TODO:
-* [ ] Create PowerShell script to install via  
-`Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/mob-programming-meetup/cloud-mob-station/master/install.windows.ps1 | Invoke-Expression` 
+A clean development workstation in the cloud, installed with every tool you might need when hosting coding sessions. For example in a Code Retreat, Mob-Programming events or any other occasion where a clean machine with tools included might be useful. 
 
-### Copy&Paste Script
+Let me know what you think and how you are using it 🤙
 
-Note: Execute commands in an administrative PowerShell.
 
-```PowerShell
-# chocolatey
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+### Install Development Environment
 
-choco install -y `
-  7zip `
-  adobereader `
-  adoptopenjdk `
-  anydesk `
-  beyondcompare `
-  brave `
-  cmake `
-  dart-sdk `
-  dotnetcore `
-  firefox `
-  filezilla `
-  git `
-  git-fork `
-  github-desktop `
-  GoogleChrome `
-  greenshot `
-  intellijidea-ultimate `
-  irfanview `
-  jetbrains-rider `
-  mariadb `
-  nvm `
-  notepadplusplus `
-  paint.net `
-  postman `
-  powertoys `
-  procexp `
-  putty `
-  pycharm `
-  python3 `
-  ripgrep `
-  ruby `
-  sliksvn `
-  sublimetext3 `
-  teamviewer `
-  terraform `
-  tortoisegit `
-  treesizefree `
-  unity `
-  visualstudio2019community `
-  vlc `
-  vscode `
-  webstorm `
-  win-no-annoy `
-  winscp `
-  yarn
+Open an administrative PowerShell, and copy&paste the following command:
+`Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/mob-programming-meetup/cloud-desktop/master/install.windows.ps1 | Invoke-Expression`
 
-# Reload environment variables (system path)
-RefreshEnv
+Note: Have a look at [install.windows.ps1](./install.windows.ps1) first. You might want to check if the installed packages are not suspicious and/or adapt the script to your own needs. PRs are always welcome 🎉
 
-mkdir "$env:TEMP\cloud-desktop"
-pushd "$env:TEMP\cloud-desktop"
-Invoke-WebRequest https://github.com/dillonkearns/mobster/releases/download/v0.0.48/Mobster-Setup-0.0.48.exe -OutFile Mobster-Setup-0.0.48.exe
-.\Mobster-Setup-0.0.48.exe /S 
-popd
+### AWS Setup
 
-# chocolatey prerelease
-choco install -y --pre firefox-dev
+👉 Help wanted!
 
-# Use Node Version Manager (NVM) to install multiple Node.js versions
-nvm install 8
-nvm install 14 # LTS version
-nvm use 14 # LTS version
+### Azure Cloud Setup
 
-Set-Timezone -Id "W. Europe Standard Time" -PassThru
-Set-Service Audiosrv -StartupType Automatic
-```
-
+👉 Help wanted!
 
 ### Google Cloud Setup
 
