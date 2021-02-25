@@ -2,6 +2,8 @@
 # Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/mob-programming-meetup/cloud-mob-station/master/install.windows.ps1 | Invoke-Expression
 
 & {
+  # Set-PSDebug -Trace 1 # Trace script lines as they run. # Disable as not working as expected
+
   # Install Chocolatey package manager
   Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
@@ -27,7 +29,7 @@
     irfanview `
     jetbrains-rider `
     mariadb `
-    nvm `
+    nodejs-lts `
     notepadplusplus `
     paint.net `
     postman `
@@ -53,8 +55,6 @@
     winscp `
     yarn
 
-  # Reload environment variables (system path)
-  RefreshEnv
 
   # Install Mobster Mob-Programming timer
   mkdir "$env:TEMP\cloud-desktop"
@@ -67,10 +67,12 @@
   choco install -y --pre `
     firefox-dev
 
-  # Use Node Version Manager (NVM) to install multiple Node.js versions
-  nvm install 8
-  nvm install 14 # LTS version
-  nvm use 14 # LTS version
+  # # Use Node Version Manager (NVM) to install multiple Node.js versions
+  # RefreshEnv # Reload environment variables (system path)
+  # choco install -y nvm
+  # nvm install 8
+  # nvm install 14 # LTS version
+  # nvm use 14 # LTS version
 
   # Set Timezone
   Set-Timezone -Id "W. Europe Standard Time" -PassThru
