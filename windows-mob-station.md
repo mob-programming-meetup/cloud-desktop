@@ -38,6 +38,6 @@ Connect to the VM in the cloud via RDP:
 
 Run the script mentioned above from an administrative Powershell console to install the developer tools. Add additional chocolatey packages (https://chocolatey.org/packages) to the list if necessary. Note: Let me know what is missing by submitting an issue or a Pull Request to this project. 🙏
 
-After the installation script finished (~ 30-60 min), start Anydesk or Teamviewer and configure a pre-defined password for easier connection of your participants.
+After the installation script finished (~ 60-90 min), start Anydesk or Teamviewer and configure a pre-defined password for easier connection of your participants.
 
 After the preparation, you can shutdown the instance and save a machine image to avoid running costs when the instance is not used (delete the instance after successfully creating the machine image as you are still charged for the attached disk otherwise). Generally, it's recommended to re-install the instance from scratch for each session. This way you don't have to worry about security updates or misconfiguration when giving somebody else unattended access.
