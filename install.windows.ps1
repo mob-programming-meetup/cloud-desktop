@@ -48,6 +48,7 @@
     treesizefree `
     unity `
     visualstudio2019community `
+    visualstudio2019-workload-nativedesktop `
     vlc `
     vscode `
     webstorm `
