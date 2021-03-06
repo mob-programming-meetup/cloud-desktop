@@ -44,7 +44,7 @@ Run the script mentioned above from an administrative Powershell console to inst
 
 After the installation script finished (~ 60-90 min):
 * Start Anydesk or Teamviewer and configure a pre-defined password for easier connection of your participants.
-* Press Ctrl+Alt+End and change the Windows password. You might choose one which is more simple to type, as you can not copy&paste the password when you need to unlock the machine via Anydesk or Teamviewer.
+* Go to the Accounts Settings/Sign-in Options to change the Windows password. You might choose one which is more simple to type, as you can not copy&paste the password when you need to unlock the machine via Anydesk or Teamviewer.
 * Restart the machine.
 
 After the preparation, you can shutdown the instance and save a machine image to avoid running costs when the instance is not used (delete the instance after successfully creating the machine image as you are still charged for the attached disk otherwise). Generally, it's recommended to re-install the instance from scratch for each session. This way you don't have to worry about security updates or misconfiguration when giving somebody else unattended access.
