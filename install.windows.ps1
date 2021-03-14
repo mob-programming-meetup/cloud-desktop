@@ -29,11 +29,11 @@
     irfanview `
     jetbrains-rider `
     mariadb `
+    miniconda3 `
     nodejs-lts `
     notepadplusplus `
     paint.net `
     postman `
-    powertoys `
     procexp `
     putty `
     pycharm `
@@ -55,6 +55,9 @@
     win-no-annoy `
     winscp `
     yarn
+
+    # add C:\Users\harald_reingruber\AppData\Roaming\Python\Python39\Scripts to path
+    # add software opengl driver: https://github.com/pal1000/mesa-dist-win
 
 
   # Install Mobster Mob-Programming timer
