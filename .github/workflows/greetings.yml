@@ -9,5 +9,13 @@ jobs:
     - uses: actions/first-interaction@v1
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        issue-message: "Thank you for creating this issue. Don't hesitate to reach out to us to better understand in which context you are using or planning on using this project and how we can help you with that."
-        pr-message: "Thanks a log for contributing this PR. It's really awesome you took the time and and we highly appreciate your effort. We will try our best to collaborate with you on figuring out what's needed to get this PR merged."
+        issue-message: |
+          Thank you for creating this issue. 🙏 
+          
+          Don't hesitate to reach out to us to better understand in which context you are using or planning on using 
+          this project and how we can help you with that.
+        pr-message: |
+          Thanks a lot for contributing this PR. 🙏 
+          
+          It's really awesome you took the time and we highly appreciate your effort. 🎉🎉🎉
+          We will try our best to collaborate with you on figuring out what's needed to get this PR merged.
