@@ -15,7 +15,7 @@ Note: Have a look at [install.windows.ps1](./install.windows.ps1) first. You mig
 
 ### AWS Setup
 
-👉 Help wanted!
+Check out https://github.com/JayBazuzi/machine-setup/blob/main/Setting%20up%20AWS.md
 
 ### Azure Cloud Setup
 
