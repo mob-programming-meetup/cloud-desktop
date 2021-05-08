@@ -22,25 +22,26 @@ Check out https://github.com/JayBazuzi/machine-setup/blob/main/Setting%20up%20AW
 👉 Help wanted!
 
 ### Google Cloud Setup
+Create via Node.js script:
+* Check out [setup/windows-gce-instance.js](./setup/windows-gce-instance.js)
 
-Create VM in the cloud:
+Create VM manually:
 
 * Create a new VM instance in the Google Cloud Platform ([Compute Engine](https://console.cloud.google.com/compute)).
-* Choose a region close to your audience, in order to minimize latency.
-* Choose a machine type depending on your budget and requirements. For example a 4 vCPU + 16 GB memory running a Windows OS costs approx. 0.35 $ per hour (region: europe-west4). The estimated price is shown in the top right.
-* Expand "CPU platform and GPU" 
-* Enable "Turn on display device" in order to allow screen sharing connection via Anydesk or TeamViewer.
-* Select the Boot Disk "Windows Server 2019 Datacenter". Note: The Server Core Windows versions do not include the Windows Desktop features.
-* A disk size of 70 GB or greater is recommended.
-* Click on "Create" and wait until the instance gets created.
+    * Choose a region close to your audience, in order to minimize latency.
+    * Choose a machine type depending on your budget and requirements. For example a 4 vCPU + 16 GB memory running a Windows OS costs approx. 0.35 $ per hour (region: europe-west4). The estimated price is shown in the top right.
+    * Expand "CPU platform and GPU" 
+    * Enable "Turn on display device" in order to allow screen sharing connection via Anydesk or TeamViewer.
+    * Select the Boot Disk "Windows Server 2019 Datacenter". Note: The Server Core Windows versions do not include the Windows Desktop features.
+    * A disk size of 70 GB or greater is recommended.
+    * Click on "Create" and wait until the instance gets created.
 
-Connect to the VM in the cloud via RDP:
-* Download the RDP file from the menu next to the instance
-* Set + copy the windows password from the same menu.
-* Windows: Open it with the Remote Desktop application.
-* MacOS: Install the Microsft Remote Desktop App from the Mac App Store: https://apps.apple.com/app/microsoft-remote-desktop/id1295203466
-
-Run the script mentioned above from an administrative Powershell console to install the developer tools. Add additional chocolatey packages (https://chocolatey.org/packages) to the list if necessary. Note: Let me know what is missing by submitting an issue or a Pull Request to this project. 🙏
+* Connect to the VM in the cloud via RDP:
+    * Download the RDP file from the menu next to the instance
+    * Set + copy the windows password from the same menu.
+    * Windows: Open it with the Remote Desktop application.
+    * MacOS: Install the Microsft Remote Desktop App from the Mac App Store: https://apps.apple.com/app/microsoft-remote-desktop/id1295203466
+    * Run the script mentioned above from an administrative Powershell console to install the developer tools. Add additional chocolatey packages (https://chocolatey.org/packages) to the list if necessary. Note: Let me know what is missing by submitting an issue or a Pull Request to this project. 🙏
 
 After the installation script finished (~ 60-90 min):
 * Start Anydesk or Teamviewer and configure a pre-defined password for easier connection of your participants.

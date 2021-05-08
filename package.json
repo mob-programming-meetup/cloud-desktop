@@ -1,0 +1,24 @@
+{
+  "name": "cloud-desktop",
+  "version": "0.1.0",
+  "description": "This project provides instructions and scripts for easily setting up a cloud instance with a universal development environment that can be used for Mob-Programming and Mob-Programming events.",
+  "main": "setup/windows-gce-instance.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MobProgrammingMeeetup/cloud-desktop.git"
+  },
+  "author": "Harald Reingruber",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MobProgrammingMeeetup/cloud-desktop/issues"
+  },
+  "homepage": "https://github.com/MobProgrammingMeeetup/cloud-desktop#readme",
+  "scripts": {
+    "start": "node setup/windows-gce-instance.js"
+  },
+  "dependencies": {
+    "@google-cloud/compute": "^2.4.4",
+    "dateformat": "^4.5.1",
+    "node-fetch": "^2.6.1"
+  }
+}
