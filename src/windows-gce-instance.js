@@ -1,6 +1,8 @@
 'use strict';
 
 /*
+ Based on this example: https://github.com/googleapis/nodejs-compute/blob/master/samples/startupScript.js
+
  First setup Google Cloud service account authentication.
  See https://cloud.google.com/docs/authentication/getting-started#windows
  and https://console.cloud.google.com/apis/credentials
@@ -74,7 +76,7 @@ async function main(name) {
 
     // Ping the VM to determine when the HTTP server is ready.
     console.log('Operation complete. Waiting for IP');
-    await pingVM(ip);
+    await pingVM(ip); // Not working for now, we need to start a HTTP server like in the original example (link at the top)
 
     console.log(`\n${name} created successfully`);
   }
