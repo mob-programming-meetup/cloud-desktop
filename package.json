@@ -14,7 +14,7 @@
   },
   "homepage": "https://github.com/MobProgrammingMeeetup/cloud-desktop#readme",
   "scripts": {
-    "start": "node setup/windows-gce-instance.js"
+    "start": "node src/windows-gce-instance.js"
   },
   "dependencies": {
     "@google-cloud/compute": "^2.4.4",
