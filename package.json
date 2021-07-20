@@ -15,7 +15,8 @@
   "homepage": "https://github.com/MobProgrammingMeeetup/cloud-desktop#readme",
   "scripts": {
     "start": "node src/windows-gce-instance.js",
-    "test": "mocha"
+    "test": "mocha",
+    "check-links": "find *.md -exec npx markdown-link-check {} ;"
   },
   "dependencies": {
     "@google-cloud/compute": "^2.4.4",
