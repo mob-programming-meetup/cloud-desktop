@@ -11,7 +11,7 @@ Open an administrative PowerShell, and copy&paste the following command:
 
     Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/mob-programming-meetup/cloud-desktop/master/install-scripts/_base-windows.ps1 | Invoke-Expression
 
-Note: Have a look at [install.windows.ps1](./install.windows.ps1) first. You might want to check if the installed packages are not suspicious and/or adapt the script to your own needs. PRs are always welcome 🎉
+Note: Have a look at [_base-windows.ps1](./install-scripts/_base-windows.ps1) first. You might want to check if the installed packages are not suspicious and/or adapt the script to your own needs. PRs are always welcome 🎉
 
 ### AWS Setup
 
