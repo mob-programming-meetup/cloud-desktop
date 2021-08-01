@@ -50,9 +50,8 @@ async function main(name) {
         items: [
           {
             key: 'windows-startup-script-ps1',
-            // TODO: the install script is run on every boot, need to set a persistent variable or file to bail out when already installed (test if actually necessary first)
             value: `
-                iwr -useb https://raw.githubusercontent.com/mob-programming-meetup/machine-setup/main/windows.ps1 | iex
+                iwr -useb https://raw.githubusercontent.com/mob-programming-meetup/machine-setup/main/windows-basic.ps1 | iex
                 Stop-Computer -ComputerName localhost`,
           },
         ],
