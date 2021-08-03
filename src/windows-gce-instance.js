@@ -1,23 +1,24 @@
 'use strict';
 
-/*
- Based on this example: https://github.com/googleapis/nodejs-compute/blob/master/samples/startupScript.js
+// Based on this example: https://github.com/googleapis/nodejs-compute/blob/master/samples/startupScript.js
 
- First setup Google Cloud service account authentication.
- See https://cloud.google.com/docs/authentication/getting-started#windows
- and https://console.cloud.google.com/apis/credentials
+function createWindowsVm() {
+  if (!process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+    console.error("Please set GOOGLE_APPLICATION_CREDENTIALS to the path of your gce-service-account-key.json");
+    console.info(`
+    First setup Google Cloud service account authentication.
+    See https://cloud.google.com/docs/authentication/getting-started#windows
+    and https://console.cloud.google.com/apis/credentials
 
- E.g. 
- choco install -y gcloudsdk
- gcloud iam service-accounts create some-account-name  --display-name="My Service Account"
- gcloud iam service-accounts keys create gce-service-account-key.json  --iam-account=some-account-name
- $env:GOOGLE_APPLICATION_CREDENTIALS = (pwd).path + "\gce-service-account-key.json"
- 
- */
+    This can be achieved via Powershell like this:
+    choco install -y gcloudsdk
+    gcloud iam service-accounts create some-account-name  --display-name="My Service Account"
+    gcloud iam service-accounts keys create gce-service-account-key.json  --iam-account=some-account-name
+    $env:GOOGLE_APPLICATION_CREDENTIALS = (pwd).path + "\\gce-service-account-key.json"
+   `);
+   return;
+  }
 
-
-async function main(name) {
-  // [START gce_startup_script]
   const Compute = require('@google-cloud/compute');
   const dateFormat = require('dateformat');
   const fetch = require('node-fetch');
@@ -25,7 +26,7 @@ async function main(name) {
   const compute = new Compute();
   const zone = compute.zone('europe-north1-c');
 
-  name = name || 'windows-cloud-desktop--' + dateFormat(new Date(), "yyyy-mm-dd--HH-MM");
+  const name = 'windows-cloud-desktop--' + dateFormat(new Date(), "yyyy-mm-dd--HH-MM");
 
   /**
    * Create a new virtual machine with Windows Server Desktop Experience
@@ -37,14 +38,14 @@ async function main(name) {
       os: 'windows',
       machineType: 'e2-standard-4',
       disks: [{
-            index: 0,
-            boot: true,
-            initializeParams: {
-                sourceImage: 'https://www.googleapis.com/compute/v1/projects/windows-cloud/global/images/family/windows-2019', // see `gcloud compute images list --filter=desktop`
-                diskSizeGb: '80'
-            }
-        }],
-      displayDevice: {enableDisplay: true},
+        index: 0,
+        boot: true,
+        initializeParams: {
+          sourceImage: 'https://www.googleapis.com/compute/v1/projects/windows-cloud/global/images/family/windows-2019',
+          diskSizeGb: '80'
+        }
+      }],
+      displayDevice: { enableDisplay: true },
       http: true,
       metadata: {
         items: [
@@ -60,7 +61,8 @@ async function main(name) {
 
     const vm = zone.vm(name);
 
-    console.log(`Creating VM ${name}...`);
+    console.log(`Creating VM ${name}...
+    Note: Also delete the disk of this instance when removing it.`);
     const [, operation] = await vm.create(config);
 
     console.log(`Polling operation ${operation.id}...`);
@@ -103,4 +105,4 @@ async function main(name) {
   createVMWithStartupScript();
 }
 
-main(...process.argv.slice(2));
+module.exports = { createWindowsVm };
