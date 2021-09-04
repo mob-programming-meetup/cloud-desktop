@@ -9,7 +9,7 @@ program.version(packageJson.version);
 
 program
   .addOption(
-    new Option('-c, --config <type>', `Available config types: ${validConfigTypes.join(", ")}`)
+    new Option('-c, --config <type>', 'choose how the instance should be provisioned')
     .choices(validConfigTypes)
     .makeOptionMandatory(true)
   )
