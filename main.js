@@ -2,10 +2,11 @@
 const { program, Option } = require('commander');
 
 const packageJson = require('./package.json');
-const {validPresets: validConfigTypes} = require('./src/constants');
 const { createWindowsVm } = require('./src/windows-gce-instance');
 
 program.version(packageJson.version);
+
+const validConfigTypes = ['vanilla', 'chocolatey'];
 
 program
   .addOption(
