@@ -7,7 +7,7 @@ const { createWindowsVm } = require('./src/windows-gce-instance');
 program.version(packageJson.version);
 
 program
-  .option('-c, --config <type>', `Available config types: ${validConfigTypes.join(", ")}` )
+  .requiredOption('-c, --config <type>', `Available config types: ${validConfigTypes.join(", ")}` )
   // .option('--dry-run', 'show which instance would be created, without doing so')
   // .option('-p, --pizza-type <type>', 'flavour of pizza')
   ;
