@@ -6,23 +6,32 @@ const { createWindowsVm } = require('./src/windows-gce-instance');
 
 program.version(packageJson.version);
 
-const validConfigTypes = ['vanilla', 'chocolatey'];
+configureProgram();
+parseParameters();
+executeAction();
 
-program
-  .addOption(
-    new Option('-c, --config <type>', 'choose how the instance should be provisioned')
-    .choices(validConfigTypes)
-    .makeOptionMandatory(true)
-  )
-  // .option('--dry-run', 'show which instance would be created, without doing so')
-  // .option('-p, --pizza-type <type>', 'flavour of pizza')
-  ;
+function configureProgram() {
+  program.addHelpCommand();
+  program.showHelpAfterError();
+}
 
-program.addHelpCommand();
-program.showHelpAfterError();
-  
-program.parse(process.argv);
+function parseParameters() {
+  const validConfigTypes = ['vanilla', 'chocolatey'];
 
+  program
+    .addOption(
+      new Option('-c, --config <type>', 'choose how the instance should be provisioned')
+        .choices(validConfigTypes)
+        .makeOptionMandatory(true)
+    )  
+    // .option('--dry-run', 'show which instance would be created, without doing so')
+    // .option('-p, --pizza-type <type>', 'flavour of pizza')
+    ;
 
-const options = program.opts();
-createWindowsVm(options.config);
+  program.parse(process.argv);
+}
+
+function executeAction() {
+  const options = program.opts();
+  createWindowsVm(options.config);
+}
