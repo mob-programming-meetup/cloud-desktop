@@ -12,9 +12,11 @@ program
   // .option('-p, --pizza-type <type>', 'flavour of pizza')
   ;
 
+program.addHelpCommand();
+program.showHelpAfterError();
+  
 program.parse(process.argv);
 
-program.addHelpCommand();
 
 const options = program.opts();
 if (!validConfigTypes.includes(options.config)) {
