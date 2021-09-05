@@ -23,6 +23,7 @@
     "@google-cloud/compute": "^2.4.4",
     "commander": "^8.1.0",
     "dateformat": "^4.5.1",
+    "enquirer": "^2.3.6",
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
