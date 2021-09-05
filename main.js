@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 const { program, Option } = require('commander');
 
-const packageJson = require('./package.json');
 const { createWindowsVm } = require('./src/windows-gce-instance');
 
+const packageJson = require('./package.json');
 program.version(packageJson.version);
 
 configureProgram();
