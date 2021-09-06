@@ -16,7 +16,7 @@ function configureProgram() {
 }
 
 function parseParameters() {
-  const validConfigTypes = ['vanilla', 'chocolatey'];
+  const validConfigTypes = ['vanilla', 'chocolatey', 'custom'];
 
   program
     .addOption(
@@ -25,13 +25,15 @@ function parseParameters() {
         .makeOptionMandatory(true)
     )  
     .option('-p, --packages <chocolatey packages...>', 'chocolatey packages that should be installed on the created instance')
+    .option('-s, --script <powershell script URL>', 'instance installation script. Note: Replaces the vanilla config installation script')
     // .option('--dry-run', 'show which instance would be created, without doing so')
     ;
 
   program.parse(process.argv);
 }
 
+
 function executeAction() {
   const options = program.opts();
-  createWindowsVm(options.packages);
+  createWindowsVm(options.packages, options.script);
 }

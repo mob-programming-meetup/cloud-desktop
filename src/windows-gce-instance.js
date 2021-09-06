@@ -2,7 +2,7 @@
 
 // Based on this example: https://github.com/googleapis/nodejs-compute/blob/master/samples/startupScript.js
 
-function createWindowsVm(packages) {
+function createWindowsVm(chocolateyPackages, installationScript) {
   if (!process.env.GOOGLE_APPLICATION_CREDENTIALS) {
     console.error("Please set GOOGLE_APPLICATION_CREDENTIALS to the path of your gce-service-account-key.json");
     console.info(`
@@ -16,7 +16,7 @@ function createWindowsVm(packages) {
     gcloud iam service-accounts keys create gce-service-account-key.json  --iam-account=some-account-name
     $env:GOOGLE_APPLICATION_CREDENTIALS = (pwd).path + "\\gce-service-account-key.json"
    `);
-   return;
+    return;
   }
 
   const Compute = require('@google-cloud/compute');
@@ -28,13 +28,30 @@ function createWindowsVm(packages) {
 
   const name = 'windows-cloud-desktop--' + dateFormat(new Date(), "yyyy-mm-dd--HH-MM");
 
-  function createWindowsStartupScript(packages) {
-    let result = [];
-    result.push('Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/mob-programming-meetup/machine-setup/main/windows-basic.ps1 | Invoke-Expression');
-    if (packages) {
-      result.push(`choco install --yes ${packages.join(' ')}`);
+  function addInstallationScript(result, installationScript) {
+    if (installationScript) {
+      result.push(`Invoke-WebRequest -UseBasicParsing ${installationScript} | Invoke-Expression`);
+    } else {
+      result.push('Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/mob-programming-meetup/machine-setup/main/windows-basic.ps1 | Invoke-Expression');
     }
+  }
+
+  function addChocolateyPackages(result, chocolateyPackages) {
+    if (chocolateyPackages) {
+      result.push(`choco install --yes ${chocolateyPackages.join(' ')}`);
+    }
+
+  }
+
+  function addShutdownCommand(result) {
     result.push('Stop-Computer -ComputerName localhost');
+  }
+
+  function createWindowsStartupScript(chocolateyPackages, installationScript) {
+    let result = [];
+    addInstallationScript(result, installationScript)
+    addChocolateyPackages(result, chocolateyPackages)
+    addShutdownCommand(result)
     return result.join('\r\n');
   }
 
@@ -61,7 +78,7 @@ function createWindowsVm(packages) {
         items: [
           {
             key: 'windows-startup-script-ps1',
-            value: createWindowsStartupScript(packages),
+            value: createWindowsStartupScript(chocolateyPackages, installationScript),
           },
         ],
       },
