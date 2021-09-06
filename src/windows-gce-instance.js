@@ -2,7 +2,7 @@
 
 // Based on this example: https://github.com/googleapis/nodejs-compute/blob/master/samples/startupScript.js
 
-function createWindowsVm() {
+function createWindowsVm(packages) {
   if (!process.env.GOOGLE_APPLICATION_CREDENTIALS) {
     console.error("Please set GOOGLE_APPLICATION_CREDENTIALS to the path of your gce-service-account-key.json");
     console.info(`
@@ -28,6 +28,16 @@ function createWindowsVm() {
 
   const name = 'windows-cloud-desktop--' + dateFormat(new Date(), "yyyy-mm-dd--HH-MM");
 
+  function createWindowsStartupScript(packages) {
+    let result = [];
+    result.push('Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/mob-programming-meetup/machine-setup/main/windows-basic.ps1 | Invoke-Expression');
+    if (packages) {
+      result.push(`choco install --yes ${packages.join(' ')}`);
+    }
+    result.push('Stop-Computer -ComputerName localhost');
+    return result.join('\r\n');
+  }
+
   /**
    * Create a new virtual machine with Windows Server Desktop Experience
    * @param {string} name Name of the virtual machine
@@ -51,9 +61,7 @@ function createWindowsVm() {
         items: [
           {
             key: 'windows-startup-script-ps1',
-            value: `
-                iwr -useb https://raw.githubusercontent.com/mob-programming-meetup/machine-setup/main/windows-basic.ps1 | iex
-                Stop-Computer -ComputerName localhost`,
+            value: createWindowsStartupScript(packages),
           },
         ],
       },

@@ -24,8 +24,8 @@ function parseParameters() {
         .choices(validConfigTypes)
         .makeOptionMandatory(true)
     )  
+    .option('-p, --packages <chocolatey packages...>', 'chocolatey packages that should be installed on the created instance')
     // .option('--dry-run', 'show which instance would be created, without doing so')
-    // .option('-p, --pizza-type <type>', 'flavour of pizza')
     ;
 
   program.parse(process.argv);
@@ -33,5 +33,5 @@ function parseParameters() {
 
 function executeAction() {
   const options = program.opts();
-  createWindowsVm(options.config);
+  createWindowsVm(options.packages);
 }
