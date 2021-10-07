@@ -1,12 +1,5 @@
 var assert = require('assert');
 const { createWindowsVm } = require('../src/windows-gce-instance');
-describe('Array', function() {
-  describe('#indexOf()', function() {
-    it('should return -1 when the value is not present', function() {
-      assert.equal([1, 2, 3].indexOf(4), -1);
-    });
-  });
-});
 
 /*
 Let's write a behavioral test using Given-When-Then
