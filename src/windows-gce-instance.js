@@ -2,6 +2,33 @@
 
 // Based on this example: https://github.com/googleapis/nodejs-compute/blob/master/samples/startupScript.js
 
+function addInstallationScript(result, installationScript) {
+  if (installationScript) {
+    result.push(`Invoke-WebRequest -UseBasicParsing ${installationScript} | Invoke-Expression`);
+  } else {
+    result.push('Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/mob-programming-meetup/machine-setup/main/windows-basic.ps1 | Invoke-Expression');
+  }
+}
+
+function addChocolateyPackages(result, chocolateyPackages) {
+  if (chocolateyPackages) {
+    result.push(`choco install --yes ${chocolateyPackages.join(' ')}`);
+  }
+
+}
+
+function addShutdownCommand(result) {
+  result.push('Stop-Computer -ComputerName localhost');
+}
+
+function createWindowsStartupScript(chocolateyPackages, installationScript) {
+  let result = [];
+  addInstallationScript(result, installationScript)
+  addChocolateyPackages(result, chocolateyPackages)
+  addShutdownCommand(result)
+  return result.join('\r\n');
+}
+
 function createWindowsVm(chocolateyPackages, installationScript) {
   if (!process.env.GOOGLE_APPLICATION_CREDENTIALS) {
     console.error("Please set GOOGLE_APPLICATION_CREDENTIALS to the path of your gce-service-account-key.json");
@@ -28,62 +55,36 @@ function createWindowsVm(chocolateyPackages, installationScript) {
 
   const name = 'windows-cloud-desktop--' + dateFormat(new Date(), "yyyy-mm-dd--HH-MM");
 
-  function addInstallationScript(result, installationScript) {
-    if (installationScript) {
-      result.push(`Invoke-WebRequest -UseBasicParsing ${installationScript} | Invoke-Expression`);
-    } else {
-      result.push('Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/mob-programming-meetup/machine-setup/main/windows-basic.ps1 | Invoke-Expression');
-    }
-  }
-
-  function addChocolateyPackages(result, chocolateyPackages) {
-    if (chocolateyPackages) {
-      result.push(`choco install --yes ${chocolateyPackages.join(' ')}`);
-    }
-
-  }
-
-  function addShutdownCommand(result) {
-    result.push('Stop-Computer -ComputerName localhost');
-  }
-
-  function createWindowsStartupScript(chocolateyPackages, installationScript) {
-    let result = [];
-    addInstallationScript(result, installationScript)
-    addChocolateyPackages(result, chocolateyPackages)
-    addShutdownCommand(result)
-    return result.join('\r\n');
-  }
+  // Create a new VM configuration, using a Windows Server 2019 Desktop Experience image.
+  const config = {
+    os: 'windows',
+    machineType: 'e2-standard-4',
+    disks: [{
+      index: 0,
+      boot: true,
+      initializeParams: {
+        sourceImage: 'https://www.googleapis.com/compute/v1/projects/windows-cloud/global/images/family/windows-2019',
+        diskSizeGb: '80'
+      }
+    }],
+    displayDevice: { enableDisplay: true },
+    http: true,
+    metadata: {
+      items: [
+        {
+          key: 'windows-startup-script-ps1',
+          value: createWindowsStartupScript(chocolateyPackages, installationScript),
+        },
+      ],
+    },
+  };
 
   /**
    * Create a new virtual machine with Windows Server Desktop Experience
-   * @param {string} name Name of the virtual machine
+   * @param {object} config The desired configuration of the VM.
+   * This an `InstanceResource` instance as defined at https://cloud.google.com/compute/docs/reference/rest/v1/instances
    */
-  async function createVMWithStartupScript() {
-    // Create a new VM, using a Windows Server 2019 Desktop Experience image. 
-    const config = {
-      os: 'windows',
-      machineType: 'e2-standard-4',
-      disks: [{
-        index: 0,
-        boot: true,
-        initializeParams: {
-          sourceImage: 'https://www.googleapis.com/compute/v1/projects/windows-cloud/global/images/family/windows-2019',
-          diskSizeGb: '80'
-        }
-      }],
-      displayDevice: { enableDisplay: true },
-      http: true,
-      metadata: {
-        items: [
-          {
-            key: 'windows-startup-script-ps1',
-            value: createWindowsStartupScript(chocolateyPackages, installationScript),
-          },
-        ],
-      },
-    };
-
+  async function createVMWithStartupScript(config) {
     const vm = zone.vm(name);
 
     console.log(`Creating VM ${name}...
@@ -127,7 +128,7 @@ function createWindowsVm(chocolateyPackages, installationScript) {
     }
   }
 
-  createVMWithStartupScript();
+  createVMWithStartupScript(config);
 }
 
 module.exports = { createWindowsVm };
