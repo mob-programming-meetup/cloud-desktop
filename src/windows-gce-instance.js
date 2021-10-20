@@ -53,10 +53,12 @@ function getVanillaConfig(chocolateyPackages, installationScript) {
       ],
     },
   };
-  console.log("Returns: ", config.os);
+  console.log("Returns: ", config.metadata.items[0]['value']);
   return {
     config: {
-      os: config.os
+      os: config.os,
+      displayDevice: config.displayDevice,
+      metadata: config.metadata
      }
      } ;
 }

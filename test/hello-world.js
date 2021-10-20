@@ -17,8 +17,9 @@ describe('Vanilla Configuration', function() {
     vm = getVanillaConfig();
     console.log(vm.config);
     assert(vm.config.os == 'windows');
-    // assert vm.display == true
-    // assert vm.scripts['windows-startup-script-ps1'] contains ['chocolatey', 'git']
+    assert(vm.config.displayDevice.enableDisplay == true);
+    assert(vm.config.metadata.items[0]['key'] == 'windows-startup-script-ps1');
+    assert(vm.config.metadata.items[0]['value'].includes('https://raw.githubusercontent.com/mob-programming-meetup/machine-setup/main/windows-basic.ps1'));
   });
   
 });
@@ -26,4 +27,9 @@ describe('Vanilla Configuration', function() {
 options to make the test pass:
 1. make the function-under-test return the config as a member of its result (object)
 2. make a createWindowsVMConfig function that returns only the config
+*/
+
+/*
+A. should the test tightly couple itself ot the REST API of google
+B. should the test require the "model" of a configuration to be returned.
 */
