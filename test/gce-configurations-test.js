@@ -22,6 +22,15 @@ describe('Vanilla Configuration', function() {
     assert(vmConfig.metadata.items[0]['value'].includes('https://raw.githubusercontent.com/mob-programming-meetup/machine-setup/main/windows-basic.ps1'));
     assert(!vmConfig.metadata.items[0]['value'].includes('choco install'));
   });
+
+  it('should add boilerplate code', async function() {
+    const { getVmConfig } = require('../src/windows-gce-instance');
+    process.env['GOOGLE_APPLICATION_CREDENTIALS'] = 'dummy'
+    vmConfig = getVmConfig();
+    console.log(vmConfig);
+
+    assert('machineType' in vmConfig);
+  });
   
 });
 

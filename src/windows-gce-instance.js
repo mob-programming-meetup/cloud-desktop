@@ -31,8 +31,10 @@ function createWindowsStartupScript(chocolateyPackages, installationScript) {
 
 function getVmConfig(chocolateyPackages, installationScript) {
   // Create a new VM, using a Windows Server 2019 Desktop Experience image. 
+  var boilerplate = require('./boilerplate.json');
   const config = {
     os: 'windows',
+    ...boilerplate,
     displayDevice: { enableDisplay: true },
     metadata: {
       items: [
