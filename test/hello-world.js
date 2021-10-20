@@ -12,14 +12,29 @@ Test 0
 */
 describe('Vanilla Configuration', function() {
   it('should create a Windows VM', async function() {
-    const { createWindowsVm, getVanillaConfig } = require('../src/windows-gce-instance');
+    const { getVmConfig } = require('../src/windows-gce-instance');
     process.env['GOOGLE_APPLICATION_CREDENTIALS'] = 'dummy'
-    vmConfig = getVanillaConfig();
+    vmConfig = getVmConfig();
     console.log(vmConfig);
     assert(vmConfig.os == 'windows');
     assert(vmConfig.displayDevice.enableDisplay == true);
     assert(vmConfig.metadata.items[0]['key'] == 'windows-startup-script-ps1');
     assert(vmConfig.metadata.items[0]['value'].includes('https://raw.githubusercontent.com/mob-programming-meetup/machine-setup/main/windows-basic.ps1'));
+  });
+  
+});
+
+describe('Configuration With Specific Packages', function() {
+  it('should create a Windows VM with specific packages', async function() {
+    const { getVmConfig } = require('../src/windows-gce-instance');
+    process.env['GOOGLE_APPLICATION_CREDENTIALS'] = 'dummy'
+    vmConfig = getVmConfig(['vscode']);
+    console.log(vmConfig);
+    assert(vmConfig.os == 'windows');
+    assert(vmConfig.displayDevice.enableDisplay == true);
+    assert(vmConfig.metadata.items[0]['key'] == 'windows-startup-script-ps1');
+    assert(vmConfig.metadata.items[0]['value'].includes('https://raw.githubusercontent.com/mob-programming-meetup/machine-setup/main/windows-basic.ps1'));
+    assert(vmConfig.metadata.items[0]['value'].includes('choco install --yes vscode'));
   });
   
 });

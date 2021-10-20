@@ -29,7 +29,7 @@ function createWindowsStartupScript(chocolateyPackages, installationScript) {
   return result.join('\r\n');
 }
 
-function getVanillaConfig(chocolateyPackages, installationScript) {
+function getVmConfig(chocolateyPackages, installationScript) {
   // Create a new VM, using a Windows Server 2019 Desktop Experience image. 
   const config = {
     os: 'windows',
@@ -122,7 +122,7 @@ async function createWindowsVm(chocolateyPackages, installationScript) {
     }
   }
 
-  const cfg = await createVMWithStartupScript(getVanillaConfig(chocolateyPackages, installationScript));
+  const cfg = await createVMWithStartupScript(getVmConfig(chocolateyPackages, installationScript));
 
   return {
     config: {
@@ -131,4 +131,4 @@ async function createWindowsVm(chocolateyPackages, installationScript) {
   };
 }
 
-module.exports = { createWindowsVm, getVanillaConfig };
+module.exports = { createWindowsVm, getVmConfig };
