@@ -33,17 +33,7 @@ function getVanillaConfig(chocolateyPackages, installationScript) {
   // Create a new VM, using a Windows Server 2019 Desktop Experience image. 
   const config = {
     os: 'windows',
-    machineType: 'e2-standard-4',
-    disks: [{
-      index: 0,
-      boot: true,
-      initializeParams: {
-        sourceImage: 'https://www.googleapis.com/compute/v1/projects/windows-cloud/global/images/family/windows-2019',
-        diskSizeGb: '80'
-      }
-    }],
     displayDevice: { enableDisplay: true },
-    http: true,
     metadata: {
       items: [
         {
@@ -54,13 +44,7 @@ function getVanillaConfig(chocolateyPackages, installationScript) {
     },
   };
   console.log("Returns: ", config.metadata.items[0]['value']);
-  return {
-    config: {
-      os: config.os,
-      displayDevice: config.displayDevice,
-      metadata: config.metadata
-     }
-     } ;
+  return config;
 }
 
 async function createWindowsVm(chocolateyPackages, installationScript) {

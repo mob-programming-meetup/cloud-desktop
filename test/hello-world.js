@@ -14,12 +14,12 @@ describe('Vanilla Configuration', function() {
   it('should create a Windows VM', async function() {
     const { createWindowsVm, getVanillaConfig } = require('../src/windows-gce-instance');
     process.env['GOOGLE_APPLICATION_CREDENTIALS'] = 'dummy'
-    vm = getVanillaConfig();
-    console.log(vm.config);
-    assert(vm.config.os == 'windows');
-    assert(vm.config.displayDevice.enableDisplay == true);
-    assert(vm.config.metadata.items[0]['key'] == 'windows-startup-script-ps1');
-    assert(vm.config.metadata.items[0]['value'].includes('https://raw.githubusercontent.com/mob-programming-meetup/machine-setup/main/windows-basic.ps1'));
+    vmConfig = getVanillaConfig();
+    console.log(vmConfig);
+    assert(vmConfig.os == 'windows');
+    assert(vmConfig.displayDevice.enableDisplay == true);
+    assert(vmConfig.metadata.items[0]['key'] == 'windows-startup-script-ps1');
+    assert(vmConfig.metadata.items[0]['value'].includes('https://raw.githubusercontent.com/mob-programming-meetup/machine-setup/main/windows-basic.ps1'));
   });
   
 });
