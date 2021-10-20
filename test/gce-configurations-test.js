@@ -20,6 +20,7 @@ describe('Vanilla Configuration', function() {
     assert(vmConfig.displayDevice.enableDisplay == true);
     assert(vmConfig.metadata.items[0]['key'] == 'windows-startup-script-ps1');
     assert(vmConfig.metadata.items[0]['value'].includes('https://raw.githubusercontent.com/mob-programming-meetup/machine-setup/main/windows-basic.ps1'));
+    assert(!vmConfig.metadata.items[0]['value'].includes('choco install'));
   });
   
 });
@@ -45,6 +46,27 @@ options to make the test pass:
 */
 
 /*
-A. should the test tightly couple itself ot the REST API of google
-B. should the test require the "model" of a configuration to be returned.
+config boilerplate  for reference
+  const config = {
+    os: 'windows',
+    machineType: 'e2-standard-4',
+    disks: [{
+      index: 0,
+      boot: true,
+      initializeParams: {
+        sourceImage: 'https://www.googleapis.com/compute/v1/projects/windows-cloud/global/images/family/windows-2019',
+        diskSizeGb: '80'
+      }
+    }],
+    displayDevice: { enableDisplay: true },
+    http: true,
+    metadata: {
+      items: [
+        {
+          key: 'windows-startup-script-ps1',
+          value: createWindowsStartupScript(chocolateyPackages, installationScript),
+        },
+      ],
+    },
+  };
 */
