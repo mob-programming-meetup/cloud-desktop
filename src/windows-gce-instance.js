@@ -29,7 +29,27 @@ function createWindowsStartupScript(chocolateyPackages, installationScript) {
   return result.join('\r\n');
 }
 
-function createWindowsVm(chocolateyPackages, installationScript) {
+function getVmConfig(chocolateyPackages, installationScript) {
+  // Create a new VM, using a Windows Server 2019 Desktop Experience image. 
+  var boilerplate = require('./boilerplate.json');
+  const config = {
+    os: 'windows',
+    ...boilerplate,
+    displayDevice: { enableDisplay: true },
+    metadata: {
+      items: [
+        {
+          key: 'windows-startup-script-ps1',
+          value: createWindowsStartupScript(chocolateyPackages, installationScript),
+        },
+      ],
+    },
+  };
+  console.log("Returns: ", config.metadata.items[0]['value']);
+  return config;
+}
+
+async function createWindowsVm(chocolateyPackages, installationScript) {
   if (!process.env.GOOGLE_APPLICATION_CREDENTIALS) {
     console.error("Please set GOOGLE_APPLICATION_CREDENTIALS to the path of your gce-service-account-key.json");
     console.info(`
@@ -55,31 +75,7 @@ function createWindowsVm(chocolateyPackages, installationScript) {
 
   const name = 'windows-cloud-desktop--' + dateFormat(new Date(), "yyyy-mm-dd--HH-MM");
 
-  // Create a new VM configuration, using a Windows Server 2019 Desktop Experience image.
-  const config = {
-    os: 'windows',
-    machineType: 'e2-standard-4',
-    disks: [{
-      index: 0,
-      boot: true,
-      initializeParams: {
-        sourceImage: 'https://www.googleapis.com/compute/v1/projects/windows-cloud/global/images/family/windows-2019',
-        diskSizeGb: '80'
-      }
-    }],
-    displayDevice: { enableDisplay: true },
-    http: true,
-    metadata: {
-      items: [
-        {
-          key: 'windows-startup-script-ps1',
-          value: createWindowsStartupScript(chocolateyPackages, installationScript),
-        },
-      ],
-    },
-  };
-
-  /**
+    /**
    * Create a new virtual machine with Windows Server Desktop Experience
    * @param {object} config The desired configuration of the VM.
    * This an `InstanceResource` instance as defined at https://cloud.google.com/compute/docs/reference/rest/v1/instances
@@ -128,7 +124,13 @@ function createWindowsVm(chocolateyPackages, installationScript) {
     }
   }
 
-  createVMWithStartupScript(config);
+  const cfg = await createVMWithStartupScript(getVmConfig(chocolateyPackages, installationScript));
+
+  return {
+    config: {
+      os: cfg.os
+    }
+  };
 }
 
-module.exports = { createWindowsVm };
+module.exports = { createWindowsVm, getVmConfig };

@@ -1,0 +1,14 @@
+{
+  "machineType": "e2-standard-4",
+  "disks": [
+    {
+      "index": 0,
+      "boot": true,
+      "initializeParams": {
+        "sourceImage": "https://www.googleapis.com/compute/v1/projects/windows-cloud/global/images/family/windows-2019",
+        "diskSizeGb": "80"
+      }
+    }
+  ],
+  "http": true
+}

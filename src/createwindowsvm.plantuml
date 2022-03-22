@@ -1,0 +1,46 @@
+@startuml
+title Create Windows VM
+
+start
+
+:Check for Credentials;
+
+note left
+    Note...
+    * Credentials are expected to be stored in an env variable
+    * Check google cloud docs for details.
+end note
+
+:Create an instance of Compute 
+(imported from @google-compute/compute);
+:Create a zone object( representing europe-north-1c);
+:Initalize VM name (string) and node-fetch instances;
+
+:Call createVMWithStartupScript;
+
+note left
+    Note...
+    * this is an inner function (closure)
+    * it uses compute etc setup earlier.
+end note
+
+
+stop
+
+
+
+
+title createVMWithStartupScript
+
+start
+
+:create startup script by calling
+createWindowsStartupScript function;
+:Initialize Configuration `config` for the VM;
+:Create vm object (handle) and use it to 
+provision the VM (as per config);
+
+:Get the IP Address and wait for a successful ping;
+
+stop
+@enduml
