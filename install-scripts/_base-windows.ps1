@@ -17,7 +17,7 @@
     brave `
     cmake `
     dart-sdk `
-    dotnetcore `
+    dotnet-sdk `
     firefox `
     filezilla `
     git `
@@ -29,6 +29,7 @@
     irfanview `
     jetbrains-rider `
     mariadb `
+    microsoft-windows-terminal `
     miniconda3 `
     nodejs-lts `
     notepadplusplus `
@@ -38,7 +39,6 @@
     putty `
     pycharm `
     python3 `
-    ripgrep `
     ruby `
     sliksvn `
     sublimetext3 `
@@ -46,15 +46,11 @@
     terraform `
     tortoisegit `
     treesizefree `
-    unity `
-    visualstudio2019community `
-    visualstudio2019-workload-nativedesktop `
     vlc `
     vscode `
     webstorm `
     win-no-annoy `
-    winscp `
-    yarn
+    winscp
 
     # add C:\Users\harald_reingruber\AppData\Roaming\Python\Python39\Scripts to path
     # add software opengl driver: https://github.com/pal1000/mesa-dist-win
